@@ -2,31 +2,166 @@
 
 namespace app\models;
 
-class User extends \yii\base\Object implements \yii\web\IdentityInterface
+use Yii;
+use yii\web\IdentityInterface;
+
+/**
+ * This is the model class for table "user".
+ *
+ * @property integer $user_id
+ * @property string $username
+ * @property string $password
+ * @property string $nama
+ * @property string $cabang
+ * @property string $role
+ *
+ * @property Form04[] $form04s
+ * @property Form08[] $form08s
+ * @property Form12[] $form12s
+ * @property Form16[] $form16s
+ * @property Form20[] $form20s
+ * @property Form24[] $form24s
+ * @property Form28[] $form28s
+ * @property Form32[] $form32s
+ * @property Form36[] $form36s
+ * @property Form44[] $form44s
+ * @property Form48[] $form48s
+ * @property Laporan[] $laporans
+ */
+class User extends \yii\db\ActiveRecord implements IdentityInterface
 {
-    public $id;
-    public $username;
-    public $password;
-    public $authKey;
-    public $accessToken;
+    /**
+     * @inheritdoc
+     */
+    public static function tableName()
+    {
+        return 'user';
+    }
 
-    private static $users = [
-        '100' => [
-            'id' => '100',
-            'username' => 'admin',
-            'password' => 'admin',
-            'authKey' => 'test100key',
-            'accessToken' => '100-token',
-        ],
-        '101' => [
-            'id' => '101',
-            'username' => 'demo',
-            'password' => 'demo',
-            'authKey' => 'test101key',
-            'accessToken' => '101-token',
-        ],
-    ];
+    /**
+     * @inheritdoc
+     */
+    public function rules()
+    {
+        return [
+            [['username', 'password', 'nama', 'cabang', 'role'], 'required'],
+            [['username', 'nama'], 'string', 'max' => 100],
+            [['role'], 'string', 'max' => 20],
+            [['password'], 'string', 'max' => 255],
+            [['cabang'], 'string', 'max' => 200],
+        ];
+    }
 
+    /**
+     * @inheritdoc
+     */
+    public function attributeLabels()
+    {
+        return [
+            'user_id' => 'User ID',
+            'username' => 'Username',
+            'password' => 'Password',
+            'nama' => 'Nama',
+            'cabang' => 'Cabang',
+            'role' => 'Role',
+        ];
+    }
+
+    /**
+     * @return \yii\db\ActiveQuery
+     */
+    public function getForm04s()
+    {
+        return $this->hasMany(Form04::className(), ['user_id' => 'user_id']);
+    }
+
+    /**
+     * @return \yii\db\ActiveQuery
+     */
+    public function getForm08s()
+    {
+        return $this->hasMany(Form08::className(), ['user_id' => 'user_id']);
+    }
+
+    /**
+     * @return \yii\db\ActiveQuery
+     */
+    public function getForm12s()
+    {
+        return $this->hasMany(Form12::className(), ['user_id' => 'user_id']);
+    }
+
+    /**
+     * @return \yii\db\ActiveQuery
+     */
+    public function getForm16s()
+    {
+        return $this->hasMany(Form16::className(), ['user_id' => 'user_id']);
+    }
+
+    /**
+     * @return \yii\db\ActiveQuery
+     */
+    public function getForm20s()
+    {
+        return $this->hasMany(Form20::className(), ['user_id' => 'user_id']);
+    }
+
+    /**
+     * @return \yii\db\ActiveQuery
+     */
+    public function getForm24s()
+    {
+        return $this->hasMany(Form24::className(), ['user_id' => 'user_id']);
+    }
+
+    /**
+     * @return \yii\db\ActiveQuery
+     */
+    public function getForm28s()
+    {
+        return $this->hasMany(Form28::className(), ['user_id' => 'user_id']);
+    }
+
+    /**
+     * @return \yii\db\ActiveQuery
+     */
+    public function getForm32s()
+    {
+        return $this->hasMany(Form32::className(), ['user_id' => 'user_id']);
+    }
+
+    /**
+     * @return \yii\db\ActiveQuery
+     */
+    public function getForm36s()
+    {
+        return $this->hasMany(Form36::className(), ['user_id' => 'user_id']);
+    }
+
+    /**
+     * @return \yii\db\ActiveQuery
+     */
+    public function getForm44s()
+    {
+        return $this->hasMany(Form44::className(), ['user_id' => 'user_id']);
+    }
+
+    /**
+     * @return \yii\db\ActiveQuery
+     */
+    public function getForm48s()
+    {
+        return $this->hasMany(Form48::className(), ['user_id' => 'user_id']);
+    }
+
+    /**
+     * @return \yii\db\ActiveQuery
+     */
+    public function getLaporans()
+    {
+        return $this->hasMany(Laporan::className(), ['user_id' => 'user_id']);
+    }
 
     /**
      * @inheritdoc
@@ -58,13 +193,7 @@ class User extends \yii\base\Object implements \yii\web\IdentityInterface
      */
     public static function findByUsername($username)
     {
-        foreach (self::$users as $user) {
-            if (strcasecmp($user['username'], $username) === 0) {
-                return new static($user);
-            }
-        }
-
-        return null;
+        return static::findOne(['username' => $username]);
     }
 
     /**
@@ -72,7 +201,7 @@ class User extends \yii\base\Object implements \yii\web\IdentityInterface
      */
     public function getId()
     {
-        return $this->id;
+        return $this->user_id;
     }
 
     /**
@@ -80,7 +209,7 @@ class User extends \yii\base\Object implements \yii\web\IdentityInterface
      */
     public function getAuthKey()
     {
-        return $this->authKey;
+        return $this->auth_key;
     }
 
     /**
@@ -88,7 +217,7 @@ class User extends \yii\base\Object implements \yii\web\IdentityInterface
      */
     public function validateAuthKey($authKey)
     {
-        return $this->authKey === $authKey;
+        return $this->auth_key === $authKey;
     }
 
     /**
@@ -99,6 +228,10 @@ class User extends \yii\base\Object implements \yii\web\IdentityInterface
      */
     public function validatePassword($password)
     {
-        return $this->password === $password;
+        return Yii::$app->security->validatePassword($password, $this->password);
+    }
+
+    public function setPassword($password) {
+        $this->password = Yii::$app->security->generatePasswordHash($password);
     }
 }
