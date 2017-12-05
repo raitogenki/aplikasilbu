@@ -8,7 +8,8 @@ use Yii;
  * This is the model class for table "laporan".
  *
  * @property integer $laporan_id
- * @property string $date
+ * @property string $bulan
+ * @property string $tahun
  * @property string $create_at
  * @property string $update_at
  * @property integer $user_id
@@ -29,7 +30,6 @@ use Yii;
  */
 class Laporan extends \yii\db\ActiveRecord
 {
-    public $bulan, $tahun;
     /**
      * @inheritdoc
      */
@@ -45,9 +45,9 @@ class Laporan extends \yii\db\ActiveRecord
     {
         return [
             [['status', 'bulan', 'tahun'], 'required'],
-            [['date', 'create_at', 'update_at', 'bulan', 'tahun'], 'safe'],
-            [['user_id'], 'integer'],
-            [['status', 'date'], 'string', 'max' => 20],
+            [['bulan', 'tahun', 'create_at', 'update_at'], 'safe'],
+            [['user_id', 'tahun'], 'integer'],
+            [['status', 'bulan'], 'string', 'max' => 20],
             [['user_id'], 'exist', 'skipOnError' => true, 'targetClass' => User::className(), 'targetAttribute' => ['user_id' => 'user_id']],
         ];
     }
@@ -59,7 +59,8 @@ class Laporan extends \yii\db\ActiveRecord
     {
         return [
             'laporan_id' => 'Laporan ID',
-            'date' => 'Date',
+            'bulan' => 'Bulan',
+            'tahun' => 'Tahun',
             'create_at' => 'Create At',
             'update_at' => 'Update At',
             'user_id' => 'User ID',

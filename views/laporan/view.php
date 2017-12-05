@@ -7,14 +7,14 @@ use yii\widgets\DetailView;
 /* @var $model app\models\Laporan */
 
 $this->title = $model->laporan_id;
-$this->params['breadcrumbs'][] = ['label' => 'Laporans', 'url' => ['index']];
+$this->params['breadcrumbs'][] = ['label' => 'Laporan', 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="laporan-view">
 
     <h1><?= Html::encode($this->title) ?></h1>
 
-    <p>
+    <!--p>
         <?= Html::a('Update', ['update', 'id' => $model->laporan_id], ['class' => 'btn btn-primary']) ?>
         <?= Html::a('Delete', ['delete', 'id' => $model->laporan_id], [
             'class' => 'btn btn-danger',
@@ -23,13 +23,14 @@ $this->params['breadcrumbs'][] = $this->title;
                 'method' => 'post',
             ],
         ]) ?>
-    </p>
+    </p-->
 
     <?= DetailView::widget([
         'model' => $model,
         'attributes' => [
             'laporan_id',
-            'date',
+            'bulan',
+            'tahun',
             'create_at',
             'update_at',
             'user_id',

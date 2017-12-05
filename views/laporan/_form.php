@@ -16,9 +16,15 @@ use yii\widgets\ActiveForm;
 
     <?= $form->field($model, 'tahun')->textInput() ?>
 
-    <?= $form->field($model, 'user_id')->hiddenInput(['value' => 1])->label(false) ?>
+    <?php 
+        if(Yii::$app->user->identity->role == 'Operator'){
+            echo $form->field($model, 'user_id')->hiddenInput(['value' => Yii::$app->user->identity->user_id])->label(false);
 
-    <?= $form->field($model, 'status')->textInput(['maxlength' => true]) ?>
+            echo $form->field($model, 'status')->hiddenInput(['value' => 'Dalam peninjauan'])->label(false);
+        }else{
+            echo $form->field($model, 'status')->dropDownList(['Dalam peninjauan' => 'Dalam peninjauan', 'Valid' => 'Valid']);
+        }    
+    ?>
 
     <div class="form-group">
         <?= Html::submitButton($model->isNewRecord ? 'Create' : 'Update', ['class' => $model->isNewRecord ? 'btn btn-success' : 'btn btn-primary']) ?>

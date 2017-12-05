@@ -17,7 +17,9 @@ use yii\widgets\ActiveForm;
 
     <?= $form->field($model, 'laporan_id') ?>
 
-    <?= $form->field($model, 'date') ?>
+    <?= $form->field($model, 'bulan') ?>
+
+    <?= $form->field($model, 'tahun') ?>
 
     <?= $form->field($model, 'create_at') ?>
 

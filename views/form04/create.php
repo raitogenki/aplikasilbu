@@ -7,7 +7,8 @@ use yii\helpers\Html;
 /* @var $model app\models\Form04 */
 
 $this->title = 'Create Form04';
-$this->params['breadcrumbs'][] = ['label' => 'Form04s', 'url' => ['index']];
+$this->params['breadcrumbs'][] = ['label' => 'Laporan', 'url' => ['/laporan']];
+$this->params['breadcrumbs'][] = ['label' => 'Form04', 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="form04-create">

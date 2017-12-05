@@ -12,19 +12,20 @@ use yii\widgets\ActiveForm;
 
     <?php $form = ActiveForm::begin(); ?>
 
-    <?= $form->field($model, 'create_at')->textInput() ?>
+    <?= $form->field($model, 'laporan_id')->hiddenInput(['value' => $_GET['id']])->label(false) ?>
 
-    <?= $form->field($model, 'update_at')->textInput() ?>
+    <?= $form->field($model, 'user_id')->hiddenInput(['value' => Yii::$app->user->identity->user_id])->label(false) ?>
 
-    <?= $form->field($model, 'laporan_id')->textInput() ?>
+    <?= $form->field($model, 'status')->hiddenInput(['value' => 'Dalam peninjauan'])->label(false) ?>
 
-    <?= $form->field($model, 'user_id')->textInput() ?>
+    <?php 
+        $list_jenis = ['10' => 'Giro', '22' => 'Term Deposit', '24' => 'Deposit Facility', '90' =>'Lainnya']; 
+        $list_jenis_valuta = ['IDR' => 'Indonesian Rupiah', 'USD' => 'US Dollar']; 
+    ?>
 
-    <?= $form->field($model, 'status')->textInput(['maxlength' => true]) ?>
+    <?= $form->field($model, 'jenis')->dropDownList($list_jenis, ['prompt'=>'Pilih Jenis']); ?>
 
-    <?= $form->field($model, 'jenis')->textInput(['maxlength' => true]) ?>
-
-    <?= $form->field($model, 'jenis_valuta')->textInput(['maxlength' => true]) ?>
+    <?= $form->field($model, 'jenis_valuta')->dropDownList($list_jenis_valuta, ['prompt'=>'Pilih Jenis Valuta']); ?>
 
     <?= $form->field($model, 'jangka_mulai')->textInput() ?>
 

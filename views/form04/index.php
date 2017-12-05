@@ -7,7 +7,8 @@ use yii\grid\GridView;
 /* @var $searchModel app\models\Form04Search */
 /* @var $dataProvider yii\data\ActiveDataProvider */
 
-$this->title = 'Form04s';
+$this->title = 'Form04';
+$this->params['breadcrumbs'][] = ['label' => 'Laporan', 'url' => ['/laporan']];
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="form04-index">

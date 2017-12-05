@@ -65,14 +65,8 @@ class LaporanController extends Controller
     {
         $model = new Laporan();
 
-        if ($model->load(Yii::$app->request->post())) {
-            $model->date = $model->bulan.' '.$model->tahun;
-            // var_dump($model->validate());
-            // exit();
-
-            if($model->save()) {
-                return $this->redirect(['view', 'id' => $model->laporan_id]);
-            }
+        if ($model->load(Yii::$app->request->post()) && $model->save()) {
+            return $this->redirect(['view', 'id' => $model->laporan_id]);
         } else {
             return $this->render('create', [
                 'model' => $model,
@@ -91,7 +85,8 @@ class LaporanController extends Controller
         $model = $this->findModel($id);
 
         if ($model->load(Yii::$app->request->post())) {
-            $model->update_at = $date;//current time php
+            date_default_timezone_set('Asia/Jakarta');
+            $model->update_at = date("Y-m-d H:i:s");
             $model->save();
             return $this->redirect(['view', 'id' => $model->laporan_id]);
         } else {
@@ -114,9 +109,9 @@ class LaporanController extends Controller
         return $this->redirect(['index']);
     }
 
-    public function actionFormLaporan($id) {
+    public function actionFormList($id) {
         
-        return $this->render('form-laporan');
+        return $this->render('form-list');
     }
 
     /**

@@ -7,14 +7,15 @@ use yii\widgets\DetailView;
 /* @var $model app\models\Form04 */
 
 $this->title = $model->form_id;
-$this->params['breadcrumbs'][] = ['label' => 'Form04s', 'url' => ['index']];
+$this->params['breadcrumbs'][] = ['label' => 'Laporan', 'url' => ['/laporan']];
+$this->params['breadcrumbs'][] = ['label' => 'Form04', 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="form04-view">
 
     <h1><?= Html::encode($this->title) ?></h1>
 
-    <p>
+    <!--p>
         <?= Html::a('Update', ['update', 'id' => $model->form_id], ['class' => 'btn btn-primary']) ?>
         <?= Html::a('Delete', ['delete', 'id' => $model->form_id], [
             'class' => 'btn btn-danger',
@@ -23,7 +24,7 @@ $this->params['breadcrumbs'][] = $this->title;
                 'method' => 'post',
             ],
         ]) ?>
-    </p>
+    </p-->
 
     <?= DetailView::widget([
         'model' => $model,

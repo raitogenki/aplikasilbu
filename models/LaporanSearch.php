@@ -19,7 +19,7 @@ class LaporanSearch extends Laporan
     {
         return [
             [['laporan_id', 'user_id'], 'integer'],
-            [['date', 'create_at', 'update_at', 'status'], 'safe'],
+            [['bulan', 'tahun', 'create_at', 'update_at', 'status'], 'safe'],
         ];
     }
 
@@ -60,7 +60,8 @@ class LaporanSearch extends Laporan
         // grid filtering conditions
         $query->andFilterWhere([
             'laporan_id' => $this->laporan_id,
-            'date' => $this->date,
+            'bulan' => $this->bulan,
+            'tahun' => $this->tahun,
             'create_at' => $this->create_at,
             'update_at' => $this->update_at,
             'user_id' => $this->user_id,
