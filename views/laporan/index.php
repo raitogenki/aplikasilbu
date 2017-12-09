@@ -38,11 +38,12 @@ $this->params['breadcrumbs'][] = $this->title;
 
             [
                 'class' => 'yii\grid\ActionColumn',
-                'template' => '{form-list} {view} {update} {delete} {print}',
+                'template' => '{form-list} {view} {update} {approve} {delete} {print}',
                 'visibleButtons' => [
-                    //'approve' => Yii::$app->user->identity->role == 'Supervisor',
+                    'update' => Yii::$app->user->identity->role == 'Operator',
+                    'approve' => Yii::$app->user->identity->role == 'Supervisor',
                     'delete' => Yii::$app->user->identity->role == 'Supervisor',
-                    'print' => Yii::$app->user->identity->role == 'Supervisor'
+                    'print' => Yii::$app->user->identity->role == 'Operator'
                 ],
                 'buttons' => [
                     'form-list' => function ($url, $model) {     
@@ -50,11 +51,14 @@ $this->params['breadcrumbs'][] = $this->title;
                                 'title' => Yii::t('yii', 'Form'),
                         ]);
                     },
-                    // 'approve' => function ($url, $model) {     
-                    //     return Html::a('<span class="glyphicon glyphicon-ok"></span>', $url, [
-                    //             'title' => Yii::t('yii', 'Approve'),
-                    //     ]);
-                    // },
+                    'approve' => function ($url, $model) {     
+                        return Html::a('<span class="glyphicon glyphicon-check"></span>', ['laporan/approve', 'id' => $model->laporan_id], [
+                                'title' => Yii::t('yii', 'Approve'),
+                                'data' => [
+                                    'confirm' => 'Are you sure you want to approve this item?'
+                                ],
+                        ]);
+                    },
                     'print' => function ($url, $model) {     
                         return Html::a('<span class="glyphicon glyphicon-print"></span>', $url, [
                                 'title' => Yii::t('yii', 'Print'),

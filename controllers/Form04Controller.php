@@ -35,6 +35,10 @@ class Form04Controller extends Controller
      */
     public function actionIndex()
     {
+        if(Yii::$app->user->isGuest) { 
+            return $this->redirect(['site/login']);
+        }
+        
         $searchModel = new Form04Search();
         $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
 
@@ -63,7 +67,7 @@ class Form04Controller extends Controller
      */
     public function actionCreate()
     {
-        $model = new Form04();
+        $model = new Form04(['laporan_id' => $_GET['id']]);
         
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
             return $this->redirect(['view', 'id' => $model->form_id]);
@@ -103,7 +107,15 @@ class Form04Controller extends Controller
     {
         $this->findModel($id)->delete();
 
-        return $this->redirect(['index']);
+        return $this->redirect(['laporan/form-list', 'id' => $model->laporan_id]);
+    }
+
+    public function actionApprove($id)
+    {
+        $model = $this->findModel($id);
+        $model->status = 'Valid';
+        $model->save();
+        return $this->redirect(['laporan/form-list', 'id' => $model->laporan_id]);
     }
 
     /**

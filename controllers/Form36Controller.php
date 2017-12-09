@@ -3,16 +3,16 @@
 namespace app\controllers;
 
 use Yii;
-use app\models\Laporan;
-use app\models\LaporanSearch;
+use app\models\Form36;
+use app\models\Form36Search;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
 
 /**
- * LaporanController implements the CRUD actions for Laporan model.
+ * Form36Controller implements the CRUD actions for Form36 model.
  */
-class LaporanController extends Controller
+class Form36Controller extends Controller
 {
     /**
      * @inheritdoc
@@ -30,16 +30,12 @@ class LaporanController extends Controller
     }
 
     /**
-     * Lists all Laporan models.
+     * Lists all Form36 models.
      * @return mixed
      */
     public function actionIndex()
     {
-        if(Yii::$app->user->isGuest) { 
-            return $this->redirect(['site/login']);
-        }
-
-        $searchModel = new LaporanSearch();
+        $searchModel = new Form36Search();
         $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
 
         return $this->render('index', [
@@ -49,7 +45,7 @@ class LaporanController extends Controller
     }
 
     /**
-     * Displays a single Laporan model.
+     * Displays a single Form36 model.
      * @param integer $id
      * @return mixed
      */
@@ -61,35 +57,25 @@ class LaporanController extends Controller
     }
 
     /**
-     * Creates a new Laporan model.
+     * Creates a new Form36 model.
      * If creation is successful, the browser will be redirected to the 'view' page.
      * @return mixed
      */
     public function actionCreate()
     {
-        $model = new Laporan();
+        $model = new Form36();
 
-        if ($model->load(Yii::$app->request->post())) {
-            $modelFind = Laporan::find()->where(['bulan' => $_POST['Laporan']['bulan'], 'tahun' => $_POST['Laporan']['tahun']])->one();
-            if(empty($modelFind)) {
-                $model->save();
-                return $this->redirect(['view', 'id' => $model->laporan_id]);
-            } else {
-                return $this->render('create', [
-                    'model' => $model,
-                    'alert' => true
-                ]);
-            }
+        if ($model->load(Yii::$app->request->post()) && $model->save()) {
+            return $this->redirect(['view', 'id' => $model->form_id]);
         } else {
             return $this->render('create', [
                 'model' => $model,
-                'alert' => false
             ]);
         }
     }
 
     /**
-     * Updates an existing Laporan model.
+     * Updates an existing Form36 model.
      * If update is successful, the browser will be redirected to the 'view' page.
      * @param integer $id
      * @return mixed
@@ -98,11 +84,8 @@ class LaporanController extends Controller
     {
         $model = $this->findModel($id);
 
-        if ($model->load(Yii::$app->request->post())) {
-            date_default_timezone_set('Asia/Jakarta');
-            $model->update_at = date("Y-m-d H:i:s");
-            $model->save();
-            return $this->redirect(['view', 'id' => $model->laporan_id]);
+        if ($model->load(Yii::$app->request->post()) && $model->save()) {
+            return $this->redirect(['view', 'id' => $model->form_id]);
         } else {
             return $this->render('update', [
                 'model' => $model,
@@ -111,7 +94,7 @@ class LaporanController extends Controller
     }
 
     /**
-     * Deletes an existing Laporan model.
+     * Deletes an existing Form36 model.
      * If deletion is successful, the browser will be redirected to the 'index' page.
      * @param integer $id
      * @return mixed
@@ -119,33 +102,20 @@ class LaporanController extends Controller
     public function actionDelete($id)
     {
         $this->findModel($id)->delete();
-        //[flag] $model->status = deleted
-        return $this->redirect(['index']);
-    }
 
-    public function actionFormList($id) {
-        
-        return $this->render('form-list');
-    }
-
-    public function actionApprove($id)
-    {
-        $model = $this->findModel($id);
-        $model->status = 'Valid';
-        $model->save();
         return $this->redirect(['index']);
     }
 
     /**
-     * Finds the Laporan model based on its primary key value.
+     * Finds the Form36 model based on its primary key value.
      * If the model is not found, a 404 HTTP exception will be thrown.
      * @param integer $id
-     * @return Laporan the loaded model
+     * @return Form36 the loaded model
      * @throws NotFoundHttpException if the model cannot be found
      */
     protected function findModel($id)
     {
-        if (($model = Laporan::findOne($id)) !== null) {
+        if (($model = Form36::findOne($id)) !== null) {
             return $model;
         } else {
             throw new NotFoundHttpException('The requested page does not exist.');

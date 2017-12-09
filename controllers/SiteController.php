@@ -61,7 +61,8 @@ class SiteController extends Controller
      */
     public function actionIndex()
     {
-        if(!isset(Yii::$app->user->identity)) { //cek login (tiap kontroler)
+        //cek login (tiap kontroler)
+        if(Yii::$app->user->isGuest) { 
             return $this->redirect(['login']);
         }
         return $this->render('index');

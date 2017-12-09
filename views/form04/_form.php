@@ -2,6 +2,7 @@
 
 use yii\helpers\Html;
 use yii\widgets\ActiveForm;
+use kartik\date\Datepicker;
 
 /* @var $this yii\web\View */
 /* @var $model app\models\Form04 */
@@ -11,8 +12,6 @@ use yii\widgets\ActiveForm;
 <div class="form04-form">
 
     <?php $form = ActiveForm::begin(); ?>
-
-    <?= $form->field($model, 'laporan_id')->hiddenInput(['value' => $_GET['id']])->label(false) ?>
 
     <?= $form->field($model, 'user_id')->hiddenInput(['value' => Yii::$app->user->identity->user_id])->label(false) ?>
 
@@ -27,9 +26,23 @@ use yii\widgets\ActiveForm;
 
     <?= $form->field($model, 'jenis_valuta')->dropDownList($list_jenis_valuta, ['prompt'=>'Pilih Jenis Valuta']); ?>
 
-    <?= $form->field($model, 'jangka_mulai')->textInput() ?>
+    <?= $form->field($model, 'jangka_mulai')->widget(DatePicker::classname(), [
+        'name' => 'check_issue_date',
+        'options' => ['placeholder' => 'Masukkan jangka mulai...'],
+        'pluginOptions' => [
+            'format' => 'yyyy-mm-dd',
+            'todayHighlight' => true
+        ]
+    ]) ?>
 
-    <?= $form->field($model, 'jangka_jatuh_tempo')->textInput() ?>
+    <?= $form->field($model, 'jangka_jatuh_tempo')->widget(DatePicker::classname(), [
+        'name' => 'check_issue_date',
+        'options' => ['placeholder' => 'Masukkan jangka jatuh tempo...'],
+        'pluginOptions' => [
+            'format' => 'yyyy-mm-dd',
+            'todayHighlight' => true
+        ]
+    ]) ?>
 
     <?= $form->field($model, 'suku_bunga')->textInput(['maxlength' => true]) ?>
 
