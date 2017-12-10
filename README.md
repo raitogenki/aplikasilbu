@@ -36,9 +36,7 @@ a directory named `aplikasilbu` that is directly under the Web root.
 
 ### Database
 
-Create a new database named `aplikasilbu` in the  MySQL server.
-
-Import the file `web/aplikasi.lbu`
+Create a new database named `aplikasilbu` in the  MySQL server and import the file `web/aplikasilbu.sql` to the created database.
 
 Edit the file `config/db.php` so that it match the MySQL server credentials, for example:
 
@@ -61,3 +59,7 @@ http://localhost/aplikasilbu/web/
 
 **NOTES:**
 - This application won't create the database for you, this has to be done manually before you can access it.
+- You must register a user with it's credentials for this application to work, it can be done through the database or the following URL:
+~~~
+http://localhost/aplikasilbu/web/index.php?r=user
+~~~
