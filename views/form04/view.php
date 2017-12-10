@@ -6,14 +6,14 @@ use yii\widgets\DetailView;
 /* @var $this yii\web\View */
 /* @var $model app\models\Form04 */
 
-$this->title = $model->form_id;
-$this->params['breadcrumbs'][] = ['label' => 'Laporan', 'url' => ['/laporan']];
-$this->params['breadcrumbs'][] = ['label' => 'Form04', 'url' => ['index']];
-$this->params['breadcrumbs'][] = $this->title;
+$this->title = 'DAFTAR RINCIAN PENEMPATAN PADA BANK INDONESIA';
+// $this->params['breadcrumbs'][] = ['label' => 'Form04s', 'url' => ['index']];
+// $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="form04-view">
 
-    <h1><?= Html::encode($this->title) ?></h1>
+    <h3 style="text-align: center; margin: 24px 24px;"><?= Html::encode($this->title) ?></h3>
+    <div style="border-top: 1px solid #333; margin-bottom: 24px;"></div>
 
     <!--p>
         <?= Html::a('Update', ['update', 'id' => $model->form_id], ['class' => 'btn btn-primary']) ?>
@@ -29,12 +29,12 @@ $this->params['breadcrumbs'][] = $this->title;
     <?= DetailView::widget([
         'model' => $model,
         'attributes' => [
-            'form_id',
-            'create_at',
-            'update_at',
-            'laporan_id',
-            'user_id',
-            'status',
+            //'form_id',
+            //'create_at',
+            //'update_at',
+            //'laporan_id',
+            //'user_id',
+            //'status',
             'jenis',
             'jenis_valuta',
             'jangka_mulai',

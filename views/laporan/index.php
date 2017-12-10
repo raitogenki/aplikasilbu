@@ -7,15 +7,15 @@ use yii\grid\GridView;
 /* @var $searchModel app\models\LaporanSearch */
 /* @var $dataProvider yii\data\ActiveDataProvider */
 
-$this->title = 'Laporan';
-$this->params['breadcrumbs'][] = $this->title;
+$this->title = 'Laporan ' . Yii::$app->user->identity->cabang;
+//$this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="laporan-index">
 
-    <h1><?= Html::encode($this->title) ?></h1>
+    <h2 style="text-align: center"><?= Html::encode($this->title) ?></h2>
     <?php // echo $this->render('_search', ['model' => $searchModel]); ?>
 
-    <p>
+    <p style="text-align: center">
         <?php 
             if (Yii::$app->user->identity->role == 'Operator'){
                 echo Html::a('Create Laporan', ['create'], ['class' => 'btn btn-success']);
@@ -28,7 +28,7 @@ $this->params['breadcrumbs'][] = $this->title;
         'columns' => [
             ['class' => 'yii\grid\SerialColumn'],
 
-            'laporan_id',
+            //'laporan_id',
             'bulan',
             'tahun',
             //'create_at',
@@ -38,12 +38,12 @@ $this->params['breadcrumbs'][] = $this->title;
 
             [
                 'class' => 'yii\grid\ActionColumn',
-                'template' => '{form-list} {view} {update} {approve} {delete} {print}',
+                'template' => '{form-list} {view} {update} {approve} {delete}',
                 'visibleButtons' => [
                     'update' => Yii::$app->user->identity->role == 'Operator',
                     'approve' => Yii::$app->user->identity->role == 'Supervisor',
                     'delete' => Yii::$app->user->identity->role == 'Supervisor',
-                    'print' => Yii::$app->user->identity->role == 'Operator'
+                    //'print' => Yii::$app->user->identity->role == 'Operator'
                 ],
                 'buttons' => [
                     'form-list' => function ($url, $model) {     
@@ -59,11 +59,11 @@ $this->params['breadcrumbs'][] = $this->title;
                                 ],
                         ]);
                     },
-                    'print' => function ($url, $model) {     
-                        return Html::a('<span class="glyphicon glyphicon-print"></span>', $url, [
-                                'title' => Yii::t('yii', 'Print'),
-                        ]);
-                    }
+                    // 'print' => function ($url, $model) {     
+                    //     return Html::a('<span class="glyphicon glyphicon-print"></span>', $url, [
+                    //             'title' => Yii::t('yii', 'Print'),
+                    //     ]);
+                    // }
                 ]
             ],
         ],

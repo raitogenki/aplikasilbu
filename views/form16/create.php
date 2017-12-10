@@ -7,12 +7,12 @@ use yii\helpers\Html;
 /* @var $model app\models\Form16 */
 
 $this->title = 'Create Form16';
-$this->params['breadcrumbs'][] = ['label' => 'Form16s', 'url' => ['index']];
-$this->params['breadcrumbs'][] = $this->title;
+// $this->params['breadcrumbs'][] = ['label' => 'Form16s', 'url' => ['index']];
+// $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="form16-create">
 
-    <h1><?= Html::encode($this->title) ?></h1>
+    <h2 style="text-align: center"><?= Html::encode($this->title) ?></h2>
 
     <?= $this->render('_form', [
         'model' => $model,

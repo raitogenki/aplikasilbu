@@ -19,16 +19,16 @@ use kartik\date\Datepicker;
 
     <?php 
         $list_jenis = ['10' => 'Giro', '22' => 'Term Deposit', '24' => 'Deposit Facility', '90' =>'Lainnya']; 
-        $list_jenis_valuta = ['IDR' => 'Indonesian Rupiah', 'USD' => 'US Dollar']; 
+        $list_jenis_valuta = ['IDR' => 'Indonesian Rupiah', 'USD' => 'US Dollar', 'SGD' => 'Singapore Dollar', 'AUD' => 'Australian Dollar', 'EUR' => 'Euro', 'HKD' => 'Hong Kong Dollar', 'GBP' => 'British Pound Sterling', 'JPY' => 'Japanese Yen']; 
     ?>
 
     <?= $form->field($model, 'jenis')->dropDownList($list_jenis, ['prompt'=>'Pilih Jenis']); ?>
 
-    <?= $form->field($model, 'jenis_valuta')->dropDownList($list_jenis_valuta, ['prompt'=>'Pilih Jenis Valuta']); ?>
+    <?= $form->field($model, 'jenis_valuta')->dropDownList($list_jenis_valuta, ['prompt'=>'Pilih Jenis']); ?>
 
     <?= $form->field($model, 'jangka_mulai')->widget(DatePicker::classname(), [
         'name' => 'check_issue_date',
-        'options' => ['placeholder' => 'Masukkan jangka mulai...'],
+        //'options' => ['placeholder' => 'Masukkan jangka mulai'],
         'pluginOptions' => [
             'format' => 'yyyy-mm-dd',
             'todayHighlight' => true
@@ -37,7 +37,6 @@ use kartik\date\Datepicker;
 
     <?= $form->field($model, 'jangka_jatuh_tempo')->widget(DatePicker::classname(), [
         'name' => 'check_issue_date',
-        'options' => ['placeholder' => 'Masukkan jangka jatuh tempo...'],
         'pluginOptions' => [
             'format' => 'yyyy-mm-dd',
             'todayHighlight' => true

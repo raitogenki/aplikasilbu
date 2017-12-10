@@ -7,12 +7,12 @@ use yii\grid\GridView;
 /* @var $searchModel app\models\Form36Search */
 /* @var $dataProvider yii\data\ActiveDataProvider */
 
-$this->title = 'Form36s';
-$this->params['breadcrumbs'][] = $this->title;
+$this->title = 'Form36';
+//$this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="form36-index">
 
-    <h1><?= Html::encode($this->title) ?></h1>
+    <h2 style="text-align: center"><?= Html::encode($this->title) ?></h2>
     <?php // echo $this->render('_search', ['model' => $searchModel]); ?>
 
     <p>

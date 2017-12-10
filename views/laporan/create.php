@@ -3,17 +3,16 @@
 use yii\helpers\Html;
 use yii\bootstrap\Alert;
 
-
 /* @var $this yii\web\View */
 /* @var $model app\models\Laporan */
 
 $this->title = 'Create Laporan';
-$this->params['breadcrumbs'][] = ['label' => 'Laporan', 'url' => ['index']];
-$this->params['breadcrumbs'][] = $this->title;
+// $this->params['breadcrumbs'][] = ['label' => 'Laporan', 'url' => ['index']];
+// $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="laporan-create">
 
-    <h1><?= Html::encode($this->title) ?></h1>
+    <h2 style="text-align: center"><?= Html::encode($this->title) ?></h2>
 
     <div>
         <?php
@@ -24,7 +23,7 @@ $this->params['breadcrumbs'][] = $this->title;
                     ],
                 ]);
                 
-                echo 'Laporan telah dibuat';
+                echo 'Gagal membuat laporan! Terdapat laporan dengan periode yang sama.';
                 
                 Alert::end();
             }

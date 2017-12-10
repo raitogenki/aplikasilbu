@@ -6,13 +6,13 @@ use yii\widgets\DetailView;
 /* @var $this yii\web\View */
 /* @var $model app\models\Laporan */
 
-$this->title = $model->laporan_id;
-$this->params['breadcrumbs'][] = ['label' => 'Laporan', 'url' => ['index']];
-$this->params['breadcrumbs'][] = $this->title;
+$this->title = 'View Laporan: ' . $model->laporan_id;
+// $this->params['breadcrumbs'][] = ['label' => 'Laporan', 'url' => ['index']];
+// $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="laporan-view">
 
-    <h1><?= Html::encode($this->title) ?></h1>
+    <h2 style="text-align: center"><?= Html::encode($this->title) ?></h2>
 
     <!--p>
         <?= Html::a('Update', ['update', 'id' => $model->laporan_id], ['class' => 'btn btn-primary']) ?>
@@ -28,12 +28,12 @@ $this->params['breadcrumbs'][] = $this->title;
     <?= DetailView::widget([
         'model' => $model,
         'attributes' => [
-            'laporan_id',
+            // 'laporan_id',
             'bulan',
             'tahun',
-            'create_at',
-            'update_at',
-            'user_id',
+            // 'create_at',
+            // 'update_at',
+            // 'user_id',
             'status',
         ],
     ]) ?>

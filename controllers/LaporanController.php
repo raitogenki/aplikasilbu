@@ -8,6 +8,7 @@ use app\models\LaporanSearch;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
+use yii\db\IntegrityException;
 
 /**
  * LaporanController implements the CRUD actions for Laporan model.
@@ -118,9 +119,13 @@ class LaporanController extends Controller
      */
     public function actionDelete($id)
     {
-        $this->findModel($id)->delete();
-        //[flag] $model->status = deleted
-        return $this->redirect(['index']);
+        try {
+            $this->findModel($id)->delete();
+            return $this->redirect(['index']);
+        } catch (IntegrityException $e) {
+            //Integrity constraint violation
+            throw new \yii\web\HttpException(500, 'Gagal menghapus laporan! Masih terdapat form di dalam laporan.');
+        } 
     }
 
     public function actionFormList($id) {

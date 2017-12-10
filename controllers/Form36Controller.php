@@ -8,6 +8,7 @@ use app\models\Form36Search;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
+use kartik\mpdf\Pdf;
 
 /**
  * Form36Controller implements the CRUD actions for Form36 model.
@@ -35,6 +36,10 @@ class Form36Controller extends Controller
      */
     public function actionIndex()
     {
+        if(Yii::$app->user->isGuest) { 
+            return $this->redirect(['site/login']);
+        }
+
         $searchModel = new Form36Search();
         $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
 
@@ -63,7 +68,7 @@ class Form36Controller extends Controller
      */
     public function actionCreate()
     {
-        $model = new Form36();
+        $model = new Form36(['laporan_id' => $_GET['id']]);
 
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
             return $this->redirect(['view', 'id' => $model->form_id]);
@@ -84,7 +89,10 @@ class Form36Controller extends Controller
     {
         $model = $this->findModel($id);
 
-        if ($model->load(Yii::$app->request->post()) && $model->save()) {
+        if ($model->load(Yii::$app->request->post())) {
+            date_default_timezone_set('Asia/Jakarta');
+            $model->update_at = date("Y-m-d H:i:s");
+            $model->save();
             return $this->redirect(['view', 'id' => $model->form_id]);
         } else {
             return $this->render('update', [
@@ -102,8 +110,47 @@ class Form36Controller extends Controller
     public function actionDelete($id)
     {
         $this->findModel($id)->delete();
+        
+        return $this->redirect(['/laporan']); 
+    }
 
-        return $this->redirect(['index']);
+    public function actionApprove($id)
+    {
+        $model = $this->findModel($id);
+        $model->status = 'Valid';
+        $model->save();
+        
+        return $this->redirect(['laporan/form-list', 'id' => $model->laporan_id]);
+    }
+
+    public function actionPrint($id)
+    {
+        $model = $this->findModel($id);
+        $content = $this->renderPartial('view',['model' => $model,]);
+
+        date_default_timezone_set('Asia/Jakarta');
+
+        $pdf = new Pdf([
+            'mode' => Pdf::MODE_CORE, 
+            'format' => Pdf::FORMAT_A4, 
+            'orientation' => Pdf::ORIENT_PORTRAIT, 
+            'destination' => Pdf::DEST_BROWSER, 
+            'content' => $content,
+            'options' => [
+                'title' => 'Form-36'
+            ],
+            'methods' => [ 
+                'SetHeader'=>['Laporan Bulanan Bank Umum||Form-36'], 
+                'SetFooter'=>['Sistem Aplikasi LBU||Generated on ' . date("D, j M Y G:i:s")],
+            ]
+        ]);
+
+        $response = Yii::$app->response;
+        $response->format = \yii\web\Response::FORMAT_RAW;
+        $headers = Yii::$app->response->headers;
+        $headers->add('Content-Type', 'application/pdf');
+
+        return $pdf->render();
     }
 
     /**
