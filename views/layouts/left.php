@@ -1,3 +1,14 @@
+<?php
+    $name;
+    $role;
+    if (!isset(Yii::$app->user->identity)) {
+        $name = 'Admin';
+        $role = 'Admin';
+    } else {
+        $name = Yii::$app->user->identity->nama;
+        $role = Yii::$app->user->identity->role;
+    }
+?>
 <aside class="main-sidebar">
 
     <section class="sidebar">
@@ -8,9 +19,9 @@
                 <img src="<?= $directoryAsset ?>/img/user.png" class="img-circle" alt="User Image"/>
             </div>
             <div class="pull-left info">
-                <p><?= Yii::$app->user->identity->nama ?></p>
+                <p><?= $name ?></p>
 
-                <a><i class="fa fa-circle text-success"></i> <?= Yii::$app->user->identity->role ?></a>
+                <a><i class="fa fa-circle text-success"></i> <?= $role ?></a>
             </div>
         </div>
 
@@ -23,8 +34,8 @@
                     //['label' => 'Gii', 'icon' => 'file-code-o', 'url' => ['/gii']],
                     //['label' => 'Debug', 'icon' => 'dashboard', 'url' => ['/debug']],
                     ['label' => 'Laporan', 'icon' => 'book', 'url' => ['/laporan']],
-                    //['label' => 'Sign in', 'url' => ['site/login'], 'visible' => Yii::$app->user->isGuest],
-                    ['label' => 'Sign out', 'icon' => 'sign-out', 'url' => ['site/logout']],
+                    ['label' => 'Sign in', 'icon' => 'sign-in', 'url' => ['site/login'], 'visible' => Yii::$app->user->isGuest],
+                    ['label' => 'Sign out', 'icon' => 'sign-out', 'url' => ['site/logout'], 'visible' => !Yii::$app->user->isGuest],
                 ],
             ]
         ) ?>
